@@ -4,18 +4,22 @@ var clear = document.getElementById("clear");
 var toggle = document.getElementById("toggle");
 
 can.addEventListener("click", function(e){
-    var xcor = e.clientX;
-    var ycor = e.clientY;
-	if (tog == false)
-		ctx.fillRect(xcor,ycor,100,100);
-	else
-		ctx.fillRect(xcor,ycor,2,2);
+    var xcor = e.offsetX;
+    var ycor = e.offsetY;
+    if (tog == false)
+	ctx.fillRect(xcor,ycor,100,100);
+    else{
+	ctx.beginPath();
+        ctx.ellipse(xcor, ycor, 5, 5, Math.PI / 4, 0, 2 * Math.PI);
+        ctx.stroke();
+        ctx.fill();
+    }
 });
 
-clear.addEventListener("click", () => {
-	ctx.clearRect(0,0,600,600);
-	ctx.beginPath()
-});
+clear.addEventListener("click", function(e) {
+    e.preventDefault();
+    ctx.clearRect(0,0,600,600);
+}, false);
 
 var tog = false;
 
