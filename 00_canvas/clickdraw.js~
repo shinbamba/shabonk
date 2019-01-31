@@ -1,4 +1,0 @@
-var can = document.getElementById("slate");
-var clear = document.getElementById("clear");
-var toggle = document.getElementById("toggle");
-
