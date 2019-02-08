@@ -10,9 +10,7 @@ var ctx = c.getContext("2d");
 var stopButton  = document.getElementById("stop");
 var dotButton = document.getElementById("circle");
 var dvd = document.getElementById("dvd");
-
-
-;
+var requestID=0;
 
 var id = 0;
 var radius = 2; // radius of circle
@@ -33,6 +31,7 @@ dotButton.addEventListener('click', function(e){
 stopButton.addEventListener('click', function(e) {
 	console.log("STOPPING");
     window.cancelAnimationFrame(id); // stops animation
+    window.cancelAnimationFrame(requestID); // stops animation
     work = false;
 	// ctx.clearRect(0,0,c.width,c.height);
 })
@@ -63,18 +62,35 @@ dvd.addEventListener('click', function(e){
 });
 
 var goDvd = function(e) {
+    window.cancelAnimationFrame( requestID );
+
     var rectWidth = 100;
-    var rectHeight = 100;
-    var xcor = 0;
-    var ycor = 0;
-    var rectX = Math.floor( Math.random() * (c.width-rectWidth) );
-    var rectY = Math.floor( Math.random() * (c.height-rectHeight) );
-    id =window.requestAnimationFrame(goDvd);
-    ctx.clearRect(0,0,c.width,c.height);
-    
-    // console.log(radius);
-    ctx.beginPath();
-    var image = new Image();
-    image.src = 'logo_dvd.jpg';
-    ctx.drawImage(image, xcor,ycor, rectWidth, rectHeight);
+    var rectHeight = 50;
+
+    var rectX = Math.floor( Math.random() * (c.width - rectWidth) );
+    var rectY = Math.floor(Math.random() * (c.height - rectHeight) );
+
+    var xVel = 1;
+    var yVel = 1;
+
+    var logo = new Image();
+    logo.src = "logo_dvd.jpg";
+    var go2 = function() {
+    window.cancelAnimationFrame(requestID);
+
+    ctx.clearRect(0, 0, c.width, c.height);
+
+    if (rectX <= 0 || rectX >= c.width - rectWidth) {
+      xVel *= -1;
+    }
+    if (rectY <= 0 || rectY >= c.height - rectHeight) {
+      yVel *= -1;
+    }
+    rectX += xVel;
+    rectY += yVel;
+    ctx.drawImage(logo, rectX, rectY, rectWidth, rectHeight);
+    requestID = window.requestAnimationFrame(go2);
+
+  };
+  go2();
 };
