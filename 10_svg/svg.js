@@ -28,24 +28,25 @@ var first = true; // checks if dot exists
 
 var circle = function(x,y){
 	console.log("drawing cirlce");
-	var c = document.createElementNS("http://www.w3.org/2000/svg", "circle");
+    var c = document.createElementNS("http://www.w3.org/2000/svg", "circle");
 	c.setAttribute("cx",x);
     c.setAttribute("cy",y);
     c.setAttribute("r","10");
     c.setAttribute("fill","blue");
-    c.addEventListener('click',change(c))
-    pic.appendChild(e,c);
+    c.addEventListener('click',change)
+    pic.appendChild(c);
 };
 
-var change = function(c){
-	console.log("change");
+var change = function(e){
+    console.log("change");
+    console.log(this); 
 	e.preventDefault();
 	e.stopPropagation();
-	if(c.getAtrribute("fill") = "blue"){
-		c.setAttribute('fill','green')
+	if(this.getAttribute("fill") == "blue"){
+		this.setAttribute('fill','green')
 		console.log("changinng to green");
 	}
-	else if(this.getAttribute('fill')='green'){
+	else if(this.getAttribute('fill')=='green'){
 		xcor= Math.floor( Math.random() * pic.getAttribute("width"));
         ycor= Math.floor( Math.random() * pic.getAttribute("height"));
         pic.removeChild(this);
