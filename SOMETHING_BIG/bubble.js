@@ -9,9 +9,12 @@ var chart = d3.select(".chart")
     .attr("height", height);
 
 	
-d3.csv('file://data/cereal.csv.')
+d3.csv('cereal.csv')
     .then(function(data){
-	y.domain([0, d3.max(data, function(d) { return d.value; })]);
+	data.forEach(function(d) {
+	    d["Protein"] = +d["Protein"];
+	})
+	// y.domain([0, d3.max(data, function(d) { return d.value; })]);
 // d3.tsv("data.tsv", type, function(error, data) 
   // y.domain([0, d3.max(data, function(d) { return d.value; })]);
 
