@@ -1,0 +1,4 @@
+file = open("/cand.txt", 'w+' )
+read = file.read()
+words = read.split( " " )
+print(words)
